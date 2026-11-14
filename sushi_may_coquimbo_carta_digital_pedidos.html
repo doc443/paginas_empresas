@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushi May Coquimbo | Arte Culinario Nikkei & Sushi Fusión</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Noto Serif JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Configuración personalizada de Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Noto Serif JP"', 'serif'],
+                    },
+                    colors: {
+                        obsidian: '#0B0B0E',
+                        charcoal: '#141419',
+                        cardbg: '#1A1A22',
+                        vermilion: {
+                            DEFAULT: '#E11D48',
+                            hover: '#BE123C',
+                            glow: 'rgba(225, 29, 72, 0.35)'
+                        },
+                        gold: {
+                            DEFAULT: '#D4AF37',
+                            light: '#F3E5AB'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos personalizados y utilidades visuales */
+        body {
+            background-color: #0B0B0E;
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+
+        /* Ocultar scrollbar en la barra de categorías pero mantener funcionalidad */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Efecto cristal esmerilado */
+        .glass-nav {
+            background: rgba(11, 11, 14, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* Animación sutil para notificaciones flotantes */
+        @keyframes slideUpFade {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .toast-enter {
+            animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-vermilion selection:text-white">
+
+    <!-- ================= NAVBAR FLOTANTE ================= -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-vermilion to-rose-900 flex items-center justify-center shadow-lg shadow-vermilion/20 group-hover:scale-105 transition-transform">
+                        <span class="font-serif text-white font-bold text-xl">寿</span>
+                    </div>
+                    <div>
+                        <span class="font-serif font-bold text-xl tracking-wide text-white block leading-none">SUSHI MAY</span>
+                        <span class="text-[11px] uppercase tracking-[0.25em] text-gold font-semibold">Coquimbo • Nikkei</span>
+                    </div>
+                </a>
+
+                <!-- Navegación Desktop -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+                    <a href="#promociones" class="hover:text-vermilion transition-colors">Promociones</a>
+                    <a href="#carta" class="hover:text-vermilion transition-colors">Nuestra Carta</a>
+                    <a href="#experiencia" class="hover:text-vermilion transition-colors">Reseñas</a>
+                    <a href="#ubicacion" class="hover:text-vermilion transition-colors">Coquimbo & Horarios</a>
+                </nav>
+
+                <!-- Botón Carrito, Redes & Estado Local -->
+                <div class="flex items-center gap-2.5 sm:gap-3.5">
+                    <!-- Enlaces Rápidos Redes -->
+                    <div class="hidden lg:flex items-center gap-2 mr-1">
+                        <a href="https://www.instagram.com/chefmay2025" target="_blank" rel="noopener noreferrer" aria-label="Instagram @chefmay2025" title="Instagram @chefmay2025" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-vermilion border border-white/10 flex items-center justify-center text-gray-300 hover:text-white transition-all">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/people/Sushi-may-coquimbo/61565287244317/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Sushi May Coquimbo" title="Facebook Sushi May Coquimbo" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-[#1877F2] border border-white/10 flex items-center justify-center text-gray-300 hover:text-white transition-all">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                    </div>
+
+                    <!-- Indicador Abierto/Cerrado en Vivo -->
+                    <div id="live-status-badge" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs">
+                        <span id="live-status-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span id="live-status-text" class="text-gray-300 font-medium">Verificando horario...</span>
+                    </div>
+
+                    <!-- Botón Abrir Carrito -->
+                    <button onclick="toggleCart()" class="relative flex items-center gap-2.5 bg-vermilion hover:bg-vermilion-hover text-white px-4 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-lg shadow-vermilion/30 active:scale-95">
+                        <i class="fa-solid fa-bag-shopping text-base"></i>
+                        <span class="hidden sm:inline">Mi Pedido</span>
+                        <span id="nav-cart-count" class="bg-obsidian text-white text-xs font-bold px-2 py-0.5 rounded-full border border-white/15">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section class="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
+        <!-- Fondos decorativos radiales -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-vermilion/10 blur-[130px] rounded-full pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gold/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+                
+                <!-- Columna Texto -->
+                <div class="lg:col-span-7 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold tracking-wider uppercase mb-6">
+                        <i class="fa-solid fa-fire text-vermilion"></i> Frescura Artesanal en Coquimbo
+                    </div>
+                    
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.15] mb-6">
+                        El auténtico arte del <span class="text-transparent bg-clip-text bg-gradient-to-r from-vermilion via-rose-500 to-gold">Sushi Fusión</span> directo a tu mesa.
+                    </h1>
+                    
+                    <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+                        Cortes seleccionados de salmón austral, palta Hass en su punto exacto y recetas de autor diseñadas por <a href="https://www.instagram.com/chefmay2025" target="_blank" rel="noopener noreferrer" class="text-gold hover:underline font-semibold">@chefmay2025</a>. Pide online en Coquimbo sin comisiones extras.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#carta" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-vermilion hover:bg-vermilion-hover text-white font-bold text-base shadow-xl shadow-vermilion/30 transition-all flex items-center justify-center gap-3 hover:-translate-y-0.5">
+                            <span>Ver Carta y Pedir</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="https://www.facebook.com/people/Sushi-may-coquimbo/61565287244317/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-6 py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold text-base transition-all flex items-center justify-center gap-2.5">
+                            <i class="fa-brands fa-facebook text-[#1877F2] text-lg"></i>
+                            <span>Síguenos en Facebook</span>
+                        </a>
+                    </div>
+
+                    <!-- Métricas de confianza -->
+                    <div class="grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0 mt-10 pt-8 border-t border-white/10 text-center lg:text-left">
+                        <div>
+                            <p class="text-2xl font-bold text-white">20 min</p>
+                            <p class="text-xs text-gray-400 mt-0.5">Retiro en local</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-white">30-45<span class="text-sm font-normal text-gray-400">m</span></p>
+                            <p class="text-xs text-gray-400 mt-0.5">Delivery estimado</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-white">100%</p>
+                            <p class="text-xs text-gray-400 mt-0.5">Hecho al momento</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Imagen Hero -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-black/80 aspect-[4/3] lg:aspect-[4/4] group">
+                        <img 
+                            src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=1000&q=85" 
+                            onerror="this.src='https://placehold.co/800x800/1A1A22/D4AF37?text=Sushi+May+Premium'"
+                            alt="Selección Premium Sushi May Chile" 
+                            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-90"></div>
+                        
+                        <!-- Tarjeta flotante sobre imagen -->
+                        <div class="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-charcoal/90 backdrop-blur-md border border-white/10 flex items-center justify-between gap-3">
+                            <div>
+                                <span class="text-[11px] uppercase tracking-wider text-gold font-bold">Recomendado @chefmay2025</span>
+                                <h3 class="text-white font-bold text-base">Tabla Nikkei 40 Piezas</h3>
+                                <p class="text-xs text-gray-400">Acevichado, Tempura Pollo, California & Gyozas</p>
+                            </div>
+                            <button onclick="quickAddPromo()" class="px-4 py-2.5 rounded-xl bg-vermilion hover:bg-vermilion-hover text-white font-bold text-sm transition-colors shrink-0">
+                                $19.990
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= BANNER PROMOCIONES DESTACADAS ================= -->
+    <section id="promociones" class="py-12 bg-charcoal/60 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                <div>
+                    <span class="text-vermilion font-bold text-xs uppercase tracking-widest">Tablas Familiares & Pareja</span>
+                    <h2 class="font-serif text-2xl sm:text-3xl font-bold text-white mt-1">Promociones Sushi May</h2>
+                </div>
+                <p class="text-sm text-gray-400">Incluyen palitos de bambú, salsa de soya y salsa teriyaki de cortesía.</p>
+            </div>
+
+            <!-- Grid de Promociones -->
+            <div id="promos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Se puebla dinámicamente desde JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CARTA INTERACTIVA (MENÚ) ================= -->
+    <section id="carta" class="py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Cabecera de Carta + Buscador -->
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-10">
+                <div>
+                    <span class="text-gold font-bold text-xs uppercase tracking-widest">Carta Completa & Actualizada</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white mt-1">Explora Nuestros Rolls</h2>
+                </div>
+
+                <!-- Buscador de ingredientes o platos -->
+                <div class="relative w-full lg:w-80">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input 
+                        type="text" 
+                        id="search-input"
+                        oninput="handleSearch(this.value)"
+                        placeholder="Buscar salmón, camarón, tempura..." 
+                        class="w-full bg-cardbg border border-white/10 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-vermilion transition-colors"
+                    >
+                </div>
+            </div>
+
+            <!-- Filtros de Categoría (Scroll horizontal en móviles) -->
+            <div class="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-4 mb-8" id="category-tabs">
+                <!-- Botones generados por JS -->
+            </div>
+
+            <!-- Grid de Productos -->
+            <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Tarjetas generadas por JS -->
+            </div>
+
+            <!-- Estado vacío si no hay resultados de búsqueda -->
+            <div id="empty-search" class="hidden text-center py-16 bg-cardbg/50 rounded-3xl border border-white/5">
+                <i class="fa-solid fa-bowl-rice text-4xl text-gray-600 mb-3"></i>
+                <h3 class="text-lg font-bold text-white">No encontramos coincidencias</h3>
+                <p class="text-sm text-gray-400 mt-1">Intenta buscando otro ingrediente o selecciona otra categoría.</p>
+                <button onclick="resetFilters()" class="mt-4 px-5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-medium transition-colors">
+                    Ver toda la carta
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= ZONAS DE REPARTO & HORARIOS DETALLADOS ================= -->
+    <section id="reparto-horarios" class="py-16 bg-charcoal/70 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-vermilion font-bold text-xs uppercase tracking-widest">Información de Servicio</span>
+                <h2 class="font-serif text-3xl font-bold text-white mt-2">Zonas de Reparto y Horarios</h2>
+                <p class="text-sm text-gray-400 mt-2">Transparencia total en tiempos de preparación, tarifas de despacho y medios de pago.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Tarjeta Zonas de Delivery -->
+                <div class="bg-cardbg rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center gap-3">
+                                <div class="w-11 h-11 rounded-2xl bg-vermilion/15 text-vermilion flex items-center justify-center text-xl">
+                                    <i class="fa-solid fa-motorcycle"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-white">Tarifas de Delivery</h3>
+                                    <p class="text-xs text-gray-400">Tiempo estimado: 30 - 45 minutos</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-gold/10 text-gold text-xs font-bold border border-gold/20">Retiro Gratis</span>
+                        </div>
+
+                        <div id="delivery-zones-display" class="space-y-3">
+                            <!-- Se renderiza dinámicamente desde JS -->
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-400">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-building-columns text-gold"></i> Transferencia</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-credit-card text-gold"></i> Débito / Crédito</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-money-bill-wave text-gold"></i> Efectivo</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Horarios de Atención & Estado en Vivo -->
+                <div class="bg-cardbg rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center gap-3">
+                                <div class="w-11 h-11 rounded-2xl bg-gold/15 text-gold flex items-center justify-center text-xl">
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-white">Horarios de Atención</h3>
+                                    <p class="text-xs text-gray-400">Hora local Chile Continental</p>
+                                </div>
+                            </div>
+                            <div id="card-status-pill" class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 text-xs font-bold border border-emerald-500/30">
+                                Abierto Ahora
+                            </div>
+                        </div>
+
+                        <div id="schedule-list-display" class="space-y-3.5 text-sm">
+                            <!-- Se renderiza dinámicamente desde JS -->
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="text-xs text-gray-400">
+                            <strong class="text-white block">¿Dudas con tu sector de reparto?</strong>
+                            Escríbenos directo antes de ordenar.
+                        </div>
+                        <button onclick="openDirectWhatsApp()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 shrink-0">
+                            <i class="fa-brands fa-whatsapp text-base"></i> Consultar Cobertura
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= RESEÑAS & EXPERIENCIA ================= -->
+    <section id="experiencia" class="py-16 bg-charcoal/50 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-gold font-bold text-xs uppercase tracking-widest">Lo que dicen nuestros clientes</span>
+                <h2 class="font-serif text-3xl font-bold text-white mt-2">Calidad que se recomienda sola</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Reseña 1 -->
+                <div class="bg-cardbg p-6 rounded-2xl border border-white/5">
+                    <div class="flex items-center gap-1 text-gold text-sm mb-3">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                        "El roll acevichado es otro nivel, se nota que el pescado es fresco del día y la proporción de arroz es perfecta, nada de puro arroz como en otros lados."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-vermilion/20 text-vermilion flex items-center justify-center font-bold text-sm">CM</div>
+                        <div>
+                            <p class="text-white font-semibold text-sm">Camila Muñoz</p>
+                            <p class="text-xs text-gray-500">Clienta frecuente</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reseña 2 -->
+                <div class="bg-cardbg p-6 rounded-2xl border border-white/5">
+                    <div class="flex items-center gap-1 text-gold text-sm mb-3">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                        "Pedimos la tabla de 40 piezas para un cumpleaños y llegó súper rápido y calentitos los tempuras. Excelente relación precio-calidad."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-gold/20 text-gold flex items-center justify-center font-bold text-sm">JR</div>
+                        <div>
+                            <p class="text-white font-semibold text-sm">Javier Rojas</p>
+                            <p class="text-xs text-gray-500">Pedido Delivery</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reseña 3 -->
+                <div class="bg-cardbg p-6 rounded-2xl border border-white/5">
+                    <div class="flex items-center gap-1 text-gold text-sm mb-3">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                        "Me encanta lo fácil que es pedir ahora por la web y mandar directo el detalle por WhatsApp. Los handrolls son gigantes y muy contundentes."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">VA</div>
+                        <div>
+                            <p class="text-white font-semibold text-sm">Valentina Araya</p>
+                            <p class="text-xs text-gray-500">Retiro en Local</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= UBICACIÓN, HORARIOS & FOOTER ================= -->
+    <footer id="ubicacion" class="bg-obsidian border-t border-white/10 pt-16 pb-24 md:pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+                
+                <!-- Columna Marca -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-xl bg-vermilion flex items-center justify-center">
+                            <span class="font-serif text-white font-bold text-lg">寿</span>
+                        </div>
+                        <span class="font-serif font-bold text-xl text-white">SUSHI MAY COQUIMBO</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-5">
+                        Pasión por la gastronomía japonesa y fusión nikkei en Coquimbo. Preparaciones artesanales hechas al instante con los mejores insumos.
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <a href="https://www.instagram.com/chefmay2025" target="_blank" rel="noopener noreferrer" aria-label="Instagram @chefmay2025" title="Instagram @chefmay2025" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-vermilion flex items-center justify-center text-white transition-colors">
+                            <i class="fa-brands fa-instagram text-lg"></i>
+                        </a>
+                        <a href="https://www.facebook.com/people/Sushi-may-coquimbo/61565287244317/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Sushi May Coquimbo" title="Facebook Sushi May Coquimbo" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-[#1877F2] flex items-center justify-center text-white transition-colors">
+                            <i class="fa-brands fa-facebook-f text-lg"></i>
+                        </a>
+                        <button onclick="openDirectWhatsApp()" aria-label="WhatsApp" title="Escribir por WhatsApp" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-emerald-600 flex items-center justify-center text-white transition-colors">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Columna Horarios -->
+                <div>
+                    <h4 class="text-white font-bold text-base mb-4 flex items-center gap-2">
+                        <i class="fa-regular fa-clock text-vermilion"></i> Horarios de Atención
+                    </h4>
+                    <ul id="footer-schedule-list" class="space-y-2.5 text-sm text-gray-400">
+                        <li class="flex justify-between">
+                            <span>Lunes a Jueves:</span>
+                            <span class="text-white font-medium" id="disp-sched-week">12:30 - 22:30 hrs</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Viernes y Sábado:</span>
+                            <span class="text-white font-medium" id="disp-sched-weekend">12:30 - 23:45 hrs</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Domingos y Festivos:</span>
+                            <span class="text-white font-medium" id="disp-sched-sunday">13:00 - 22:00 hrs</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Columna Cobertura & Local -->
+                <div>
+                    <h4 class="text-white font-bold text-base mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-vermilion"></i> Coquimbo & Despacho
+                    </h4>
+                    <p class="text-sm text-gray-400 mb-3">
+                        Comuna de Coquimbo, Región de Coquimbo.<br>
+                        Retiro coordinado y reparto a domicilio en sectores habilitados.
+                    </p>
+                    <div class="inline-flex items-center gap-2 text-xs text-gold bg-gold/10 px-3 py-1.5 rounded-lg border border-gold/20">
+                        <i class="fa-solid fa-credit-card"></i> Aceptamos Transferencia, Débito y Efectivo
+                    </div>
+                </div>
+
+                <!-- Columna Redes & Enlaces Rápidos -->
+                <div>
+                    <h4 class="text-white font-bold text-base mb-4">Comunidad Oficial</h4>
+                    <ul class="space-y-2.5 text-sm text-gray-400">
+                        <li>
+                            <a href="https://www.instagram.com/chefmay2025" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex items-center gap-2">
+                                <i class="fa-brands fa-instagram text-vermilion"></i> Instagram (@chefmay2025)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/people/Sushi-may-coquimbo/61565287244317/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex items-center gap-2">
+                                <i class="fa-brands fa-facebook text-[#1877F2]"></i> Facebook Sushi May Coquimbo
+                            </a>
+                        </li>
+                        <li><a href="#promociones" class="hover:text-white transition-colors">Promociones & Tablas</a></li>
+                        <li><a href="#carta" class="hover:text-white transition-colors">Carta Completa</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
+                <p>© 2026 Sushi May Coquimbo. Todos los derechos reservados.</p>
+                <div class="flex items-center gap-4">
+                    <span>Precios en Pesos Chilenos (CLP)</span>
+                    <button onclick="openAdminModal()" class="text-gray-600 hover:text-gold transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-sliders"></i> Editar Carta / Precios
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= MODAL MODO ADMINISTRADOR ================= -->
+    <div id="admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-charcoal border border-white/10 rounded-3xl max-w-2xl w-full max-h-[88vh] flex flex-col shadow-2xl overflow-hidden">
+            <div class="p-5 border-b border-white/10 flex items-center justify-between bg-obsidian">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-sliders text-gold"></i>
+                    <h3 class="font-serif font-bold text-lg text-white">Panel Rápido Sushi May Coquimbo</h3>
+                </div>
+                <button onclick="closeAdminModal()" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-5 overflow-y-auto space-y-6 text-sm">
+                <!-- Ajuste de Zonas de Reparto -->
+                <div>
+                    <h4 class="text-gold font-bold text-xs uppercase tracking-wider mb-3">Tarifas de Reparto Coquimbo (CLP)</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="bg-cardbg p-3 rounded-xl border border-white/5">
+                            <label class="text-xs text-gray-400 block mb-1">Coquimbo Centro / Puerto</label>
+                            <input type="number" id="admin-fee-centro" class="w-full bg-obsidian border border-white/10 rounded-lg px-2.5 py-1.5 text-white font-bold">
+                        </div>
+                        <div class="bg-cardbg p-3 rounded-xl border border-white/5">
+                            <label class="text-xs text-gray-400 block mb-1">Sindempart / Herradura / Peñuelas</label>
+                            <input type="number" id="admin-fee-intermedio" class="w-full bg-obsidian border border-white/10 rounded-lg px-2.5 py-1.5 text-white font-bold">
+                        </div>
+                        <div class="bg-cardbg p-3 rounded-xl border border-white/5">
+                            <label class="text-xs text-gray-400 block mb-1">Tierras Blancas / Bosque San Carlos</label>
+                            <input type="number" id="admin-fee-alejado" class="w-full bg-obsidian border border-white/10 rounded-lg px-2.5 py-1.5 text-white font-bold">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edición rápida de precios y stock -->
+                <div>
+                    <h4 class="text-gold font-bold text-xs uppercase tracking-wider mb-3">Precios y Disponibilidad de Productos</h4>
+                    <div id="admin-products-list" class="space-y-2.5">
+                        <!-- Se llena por JS -->
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t border-white/10 bg-obsidian flex items-center justify-between gap-3">
+                <button onclick="resetAdminData()" class="px-4 py-2 rounded-xl bg-white/5 hover:bg-rose-500/20 text-gray-400 hover:text-rose-400 text-xs font-semibold transition-colors">
+                    Restaurar Valores Originales
+                </button>
+                <button onclick="saveAdminChanges()" class="px-5 py-2.5 rounded-xl bg-vermilion hover:bg-vermilion-hover text-white text-xs font-bold transition-colors">
+                    Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= BARRA FLOTANTE INFERIOR MÓVIL (CARRITO) ================= -->
+    <div id="mobile-floating-bar" class="fixed bottom-4 left-4 right-4 z-30 md:hidden hidden">
+        <button onclick="toggleCart()" class="w-full bg-vermilion text-white p-4 rounded-2xl shadow-2xl shadow-vermilion/40 flex items-center justify-between font-bold">
+            <div class="flex items-center gap-3">
+                <span id="mobile-bar-count" class="bg-obsidian text-white text-xs px-2.5 py-1 rounded-lg">0</span>
+                <span>Ver mi pedido</span>
+            </div>
+            <span id="mobile-bar-total">$0</span>
+        </button>
+    </div>
+
+    <!-- ================= DRAWER LATERAL DEL CARRITO DE COMPRAS ================= -->
+    <div id="cart-backdrop" onclick="toggleCart()" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden transition-opacity"></div>
+    
+    <aside id="cart-drawer" class="fixed top-0 right-0 bottom-0 w-full max-w-md bg-charcoal border-l border-white/10 z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+        
+        <!-- Header del Carrito -->
+        <div class="p-5 border-b border-white/10 flex items-center justify-between bg-obsidian/50">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-bag-shopping text-vermilion text-xl"></i>
+                <h3 class="font-serif font-bold text-xl text-white">Tu Pedido</h3>
+            </div>
+            <button onclick="toggleCart()" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Lista de Productos en Carrito -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-5 space-y-4">
+            <!-- Se llena dinámicamente -->
+        </div>
+
+        <!-- Formulario de Checkout & Envío a WhatsApp -->
+        <div id="cart-footer" class="p-5 bg-obsidian border-t border-white/10 space-y-4 hidden">
+            
+            <!-- Selector Delivery vs Retiro -->
+            <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Modalidad de Entrega</label>
+                <div class="grid grid-cols-2 gap-2 p-1 bg-cardbg rounded-xl border border-white/10">
+                    <button type="button" id="btn-delivery" onclick="setDeliveryMode('delivery')" class="py-2 px-3 rounded-lg text-xs font-bold bg-vermilion text-white transition-all flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-motorcycle"></i> Delivery
+                    </button>
+                    <button type="button" id="btn-pickup" onclick="setDeliveryMode('pickup')" class="py-2 px-3 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition-all flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-store"></i> Retiro Local ($0)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Datos Rápidos del Cliente -->
+            <div class="space-y-2.5">
+                <input type="text" id="customer-name" placeholder="Tu Nombre *" class="w-full bg-cardbg border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-vermilion">
+                
+                <div id="address-field-wrapper" class="space-y-2">
+                    <select id="delivery-zone" onchange="updateCartUI()" class="w-full bg-cardbg border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-vermilion">
+                        <option value="centro">Sector: Coquimbo Centro / Parte Alta / Puerto ($1.500)</option>
+                        <option value="intermedio">Sector: Sindempart / La Herradura / Peñuelas ($2.000)</option>
+                        <option value="alejado">Sector: Tierras Blancas / Bosque San Carlos / Cantera ($2.500)</option>
+                    </select>
+                    <input type="text" id="customer-address" placeholder="Calle, número y villa/condominio en Coquimbo *" class="w-full bg-cardbg border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-vermilion">
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <select id="payment-method" class="bg-cardbg border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-vermilion">
+                        <option value="Transferencia Bancaria">Pago: Transferencia</option>
+                        <option value="Tarjeta (Débito/Crédito)">Pago: Tarjeta / POS</option>
+                        <option value="Efectivo">Pago: Efectivo</option>
+                    </select>
+                    <input type="text" id="chopsticks-count" placeholder="¿Cuántos palitos?" class="bg-cardbg border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-vermilion">
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <select id="included-sauce" class="bg-cardbg border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-vermilion">
+                        <option value="Soya + Teriyaki (Mixta)">Salsas: Soya y Teriyaki</option>
+                        <option value="Solo Soya">Salsas: Solo Soya</option>
+                        <option value="Solo Teriyaki">Salsas: Solo Teriyaki</option>
+                        <option value="Sin salsas">Sin salsas incluidas</option>
+                    </select>
+                    <input type="text" id="order-notes" placeholder="Notas (ej: sin cebollín)" class="bg-cardbg border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-vermilion">
+                </div>
+            </div>
+
+            <!-- Resumen Totales -->
+            <div class="pt-2 border-t border-white/10 space-y-1.5 text-sm">
+                <div class="flex justify-between text-gray-400">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">$0</span>
+                </div>
+                <div class="flex justify-between text-gray-400" id="delivery-fee-row">
+                    <span>Reparto Coquimbo</span>
+                    <span id="cart-shipping-display" class="text-gold font-medium">$1.500</span>
+                </div>
+                <div class="flex justify-between text-white font-bold text-lg pt-1">
+                    <span>Total a Pagar</span>
+                    <span id="cart-total" class="text-vermilion">$0</span>
+                </div>
+            </div>
+
+            <!-- Mensaje de error de validación -->
+            <p id="checkout-error" class="text-xs text-rose-400 hidden text-center font-medium"></p>
+
+            <!-- Botón Enviar a WhatsApp -->
+            <button onclick="sendOrderToWhatsApp()" class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/25 transition-all flex items-center justify-center gap-2.5 active:scale-98">
+                <i class="fa-brands fa-whatsapp text-xl"></i>
+                <span>Enviar Pedido por WhatsApp</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- ================= MODAL MODO ADMINISTRADOR (EDICIÓN DE CARTA Y HORARIOS) ================= -->
+    <div id="admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-charcoal border border-white/15 rounded-3xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+            
+            <!-- Header Modal Admin -->
+            <div class="p-5 border-b border-white/10 flex items-center justify-between bg-obsidian">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-gold/20 text-gold flex items-center justify-center">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-lg">Panel Rápido Sushi May (@chefmay2025)</h3>
+                        <p class="text-xs text-gray-400">Modifica precios, disponibilidad (Agotado) o horarios en tiempo real.</p>
+                    </div>
+                </div>
+                <button onclick="closeAdminModal()" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Contenido Editable -->
+            <div class="p-5 overflow-y-auto space-y-6 flex-1">
+                
+                <!-- Sección Horarios -->
+                <div class="bg-cardbg p-4 rounded-2xl border border-white/10">
+                    <h4 class="text-sm font-bold text-gold uppercase tracking-wider mb-3">Horarios de Atención</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                        <div>
+                            <label class="text-gray-400 block mb-1">Lunes a Jueves</label>
+                            <input type="text" id="admin-sched-mon-thu" class="w-full bg-obsidian border border-white/10 rounded-lg px-3 py-2 text-white">
+                        </div>
+                        <div>
+                            <label class="text-gray-400 block mb-1">Viernes y Sábado</label>
+                            <input type="text" id="admin-sched-fri-sat" class="w-full bg-obsidian border border-white/10 rounded-lg px-3 py-2 text-white">
+                        </div>
+                        <div>
+                            <label class="text-gray-400 block mb-1">Domingo y Festivos</label>
+                            <input type="text" id="admin-sched-sun" class="w-full bg-obsidian border border-white/10 rounded-lg px-3 py-2 text-white">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección Tarifas de Delivery -->
+                <div class="bg-cardbg p-4 rounded-2xl border border-white/10">
+                    <h4 class="text-sm font-bold text-gold uppercase tracking-wider mb-3">Tarifas de Delivery (CLP)</h4>
+                    <div id="admin-zones-list" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                        <!-- Generado por JS -->
+                    </div>
+                </div>
+
+                <!-- Sección Productos y Precios -->
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="text-sm font-bold text-gold uppercase tracking-wider">Precios y Disponibilidad de Productos</h4>
+                        <button onclick="resetAllDefaults()" class="text-xs text-rose-400 hover:underline">Restaurar valores originales</button>
+                    </div>
+                    <div id="admin-products-list" class="space-y-2.5">
+                        <!-- Lista generada por JS -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Modal Admin -->
+            <div class="p-4 bg-obsidian border-t border-white/10 flex items-center justify-end gap-3">
+                <button onclick="closeAdminModal()" class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 text-xs font-semibold">
+                    Cancelar
+                </button>
+                <button onclick="saveAdminChanges()" class="px-6 py-2.5 rounded-xl bg-vermilion hover:bg-vermilion-hover text-white text-xs font-bold shadow-lg shadow-vermilion/25">
+                    Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor de Notificaciones Toast -->
+    <div id="toast-container" class="fixed bottom-20 md:bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- ================= LÓGICA DE APLICACIÓN (JAVASCRIPT) ================= -->
+    <script>
+        // Número de WhatsApp del restaurante (formato internacional Chile sin +)
+        const RESTAURANT_WHATSAPP = "56912345678"; 
+
+        // Tarifas por sector en Coquimbo
+        let deliveryFees = JSON.parse(localStorage.getItem('sushimay_fees')) || {
+            centro: 1500,
+            intermedio: 2000,
+            alejado: 2500
+        };
+
+        // Base de datos por defecto del Menú de Sushi May Coquimbo
+        const defaultMenuItems = [
+            // PROMOCIONES / TABLAS
+            {
+                id: 'promo-1',
+        };
+
+        // Base de datos completa y actualizada de Sushi May Chile (@chefmay2025)
+        const DEFAULT_MENU_ITEMS = [
+            // PROMOCIONES / TABLAS
+            {
+                id: 'promo-20',
+                name: 'Promo Dúo 20 Piezas',
+                category: 'Promociones',
+                isPromo: true,
+                available: true,
+                pieces: '20 Cortes',
+                price: 10990,
+                oldPrice: 13500,
+                description: '10 Tempura Pollo (pollo, queso crema, cebollín) + 10 California Camarón (camarón, palta, sésamo).',
+                image: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?auto=format&fit=crop&w=700&q=80',
+                badge: 'Ideal Pareja'
+            },
+            {
+                id: 'promo-30',
+                name: 'Tabla Full Tempura 30 Piezas',
+                category: 'Promociones',
+                isPromo: true,
+                available: true,
+                pieces: '30 Cortes',
+                price: 15490,
+                oldPrice: 18900,
+                description: '10 Tori Furai (pollo queso cebollín), 10 Ebi Tempura (camarón palta queso), 10 Kanikama Cheese en panko.',
+                image: 'https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?auto=format&fit=crop&w=700&q=80',
+                badge: '100% Caliente'
+            },
+            {
+                id: 'promo-40',
+                name: 'Tabla Nikkei Chef May 40 Piezas',
+                category: 'Promociones',
+                isPromo: true,
+                available: true,
+                pieces: '40 Cortes',
+                price: 19990,
+                oldPrice: 24500,
+                description: '10 Acevichado Roll, 10 Tempura Pollo Teriyaki, 10 Envuelto en Palta (camarón queso), 10 Hosomaki Salmón + 4 Gyozas.',
+                image: 'https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=700&q=80',
+                badge: 'Más Pedida'
+            },
+            {
+                id: 'promo-50',
+                name: 'Tabla Familiar Mixta 50 Piezas',
+                category: 'Promociones',
+                isPromo: true,
+                available: true,
+                pieces: '50 Cortes',
+                price: 24990,
+                oldPrice: 29900,
+                description: '10 Envuelto en Salmón, 10 Envuelto en Palta, 10 Tempura Pollo, 10 Tempura Camarón, 10 California Kanikama + 5 Gyozas.',
+                image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=700&q=80',
+                badge: 'Familiar'
+            },
+            {
+                id: 'promo-60',
+                name: 'Mega Tabla Sushi May 60 Piezas',
+                category: 'Promociones',
+                isPromo: true,
+                available: true,
+                pieces: '60 Cortes',
+                price: 29990,
+                oldPrice: 35900,
+                description: '10 Acevichado, 10 Envuelto Palta, 10 Envuelto Queso, 20 Tempura Mixtos, 10 California + 6 Gyozas y bebida 1.5L.',
+                image: 'https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=700&q=80',
+                badge: 'Mega Combo'
+            },
+
+            // ROLLS PREMIUM (ENVUELTOS EN PALTA, SALMÓN O QUESO CREMA)
+            {
+                id: 'roll-1',
+                name: 'Acevichado May Roll',
+                category: 'Rolls Premium',
+                available: true,
+                pieces: '10 Cortes',
+                price: 7690,
+                description: 'Relleno de camarón furai y palta, envuelto en láminas de salmón fresco bañado en salsa acevichada nikkei y togarashi.',
+                image: 'https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=700&q=80',
+                badge: 'Favorito Chef'
+            },
+            {
+                id: 'roll-2',
+                name: 'Avocado Ebi Cheese',
+                category: 'Rolls Premium',
+                available: true,
+                pieces: '10 Cortes',
+                price: 6990,
+                description: 'Camarón ecuatoriano salteado, queso crema y cebollín, envuelto en cremosa palta Hass con toque de sésamo tostado.',
+                image: 'https://images.unsplash.com/photo-1583623025817-d180a2221d0a?auto=format&fit=crop&w=700&q=80'
+            },
+            {
+                id: 'roll-3',
+                name: 'Sake Flameado Nikkei',
+                category: 'Rolls Premium',
+                available: true,
+                pieces: '10 Cortes',
+                price: 7990,
+                description: 'Salmón, palta y queso crema, envuelto en salmón sopleteado con salsa unagi, hilos de camote crocante y ciboulette.',
+                image: 'https://images.unsplash.com/photo-1617196034183-421b4917c92d?auto=format&fit=crop&w=700&q=80',
+                badge: 'De Autor'
+            },
+            {
+                id: 'roll-4',
+                name: 'Cream Cheese Tori Teriyaki',
+                category: 'Rolls Premium',
+                available: true,
+                pieces: '10 Cortes',
+                price: 6490,
+                description: 'Pollo teriyaki, palta y cebollín, envuelto en suave queso crema con topping de almendras tostadas y salsa dulce.',
+                image: 'https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?auto=format&fit=crop&w=700&q=80'
+            },
+
+            // ROLLS TEMPURA / FRITOS & SIN ARROZ
+            {
+                id: 'temp-1',
+                name: 'Tori Furai Crunch',
+                category: 'Rolls Tempura / Fritos',
+                available: true,
+                pieces: '10 Cortes',
+                price: 6290,
+                description: 'Pechuga de pollo crispy, queso crema y cebollín, apanado completo en panko japonés dorado y salsa teriyaki.',
+                image: 'https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=700&q=80'
+            },
+            {
+                id: 'temp-2',
+                name: 'Ebi Panko Explosion',
+                category: 'Rolls Tempura / Fritos',
+                available: true,
+                pieces: '10 Cortes',
+                price: 6890,
+                description: 'Camarón furai, palta y queso crema, frito en panko crocante coronado con tartar de salmón spicy.',
+                image: 'https://images.unsplash.com/photo-1562802378-063ec186a863?auto=format&fit=crop&w=700&q=80',
+                badge: 'Picante Suave'
+            },
+            {
+                id: 'temp-3',
+                name: 'Sin Arroz Crispy Salmon',
+                category: 'Rolls Tempura / Fritos',
+                available: true,
+                pieces: '10 Cortes',
+                price: 8290,
+                description: 'Salmón fresco, camarón, palta y queso crema envuelto en nori y panko crocante (100% libre de arroz).',
+                image: 'https://images.unsplash.com/photo-1607301406259-dfb186e15de8?auto=format&fit=crop&w=700&q=80',
+                badge: 'Sin Arroz'
+            },
+
+            // HANDROLLS & GOHAN
+            {
+                id: 'hand-1',
+                name: 'Handroll Pollo Queso Cebollín',
+                category: 'Handrolls & Gohan',
+                available: true,
+                pieces: '1 Unidad XL',
+                price: 4290,
+                description: 'Rollo entero sin cortar apanado en panko, relleno de pollo teriyaki, abundante queso crema y cebollín fresco.',
+                image: 'https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?auto=format&fit=crop&w=700&q=80'
+            },
+            {
+                id: 'hand-2',
+                name: 'Handroll Camarón Palta Queso',
+                category: 'Handrolls & Gohan',
+                available: true,
+                pieces: '1 Unidad XL',
+                price: 4690,
+                description: 'Rollo entero caliente en panko relleno de camarón ecuatoriano, palta Hass y queso crema.',
+                image: 'https://images.unsplash.com/photo-1615361200141-f45040f367be?auto=format&fit=crop&w=700&q=80'
+            },
+            {
+                id: 'hand-3',
+                name: 'Gohan Salmón & Camarón Bowl',
+                category: 'Handrolls & Gohan',
+                available: true,
+                pieces: 'Bowl 480 grs',
+                price: 8490,
+                description: 'Base de arroz de sushi tibio, salmón fresco, camarones furai, palta Hass, queso crema, cebollín, sésamo y teriyaki.',
+                image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=700&q=80',
+                badge: 'Contundente'
+            },
+
+            // CEVICHES & ENTRADAS
+            {
+                id: 'cev-1',
+                name: 'Ceviche Mixto Sushi May',
+                category: 'Ceviches & Entradas',
+                available: true,
+                pieces: '400 grs',
+                price: 9990,
+                description: 'Cubos de salmón fresco, camarones, cebolla morada, cilantro, choclo peruano, palta y leche de tigre cítrica.',
+                image: 'https://images.unsplash.com/photo-1535399831218-d5bd36d1a6b3?auto=format&fit=crop&w=700&q=80',
+                badge: 'Fresco'
+            },
+            {
+                id: 'cev-2',
+                name: 'Gyozas Artesanales (6 unid.)',
+                category: 'Ceviches & Entradas',
+                available: true,
+                pieces: '6 Unidades',
+                price: 4490,
+                description: 'Empanaditas japonesas de cerdo o pollo selladas a la plancha y terminadas al vapor, acompañadas de salsa ponzu.',
+                image: 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=700&q=80'
+            },
+            {
+                id: 'cev-3',
+                name: 'Ebi Furai (6 Camarones Apanados)',
+                category: 'Ceviches & Entradas',
+                available: true,
+                pieces: '6 Unidades',
+                price: 5490,
+                description: 'Camarones ecuatorianos estirados y apanados en panko crocante con salsa acevichada o maracuyá.',
+                image: 'https://images.unsplash.com/photo-1562802378-063ec186a863?auto=format&fit=crop&w=700&q=80'
+            },
+
+            // BEBIDAS & SALSAS
+            {
+                id: 'beb-1',
+                name: 'Coca-Cola Original / Sin Azúcar 1.5L',
+                category: 'Bebidas & Salsas',
+                available: true,
+                pieces: 'Botella 1.5L',
+                price: 2800,
+                description: 'Botella familiar bien helada ideal para acompañar tu tabla de sushi.',
+                image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=700&q=80'
+            },
+            {
+                id: 'beb-2',
+                name: 'Bebida Lata 350cc (Variedades)',
+                category: 'Bebidas',
+                pieces: 'Lata 350ml',
+                price: 1490,
+                description: 'Coca-Cola, Sprite, Fanta o Ginger Ale helada.',
+                image: 'https://images.unsplash.com/photo-1581006852262-e4307cf6283a?auto=format&fit=crop&w=700&q=80'
+            }
+        ];
+
+        // Cargar productos personalizados o por defecto
+        let menuItems = JSON.parse(localStorage.getItem('sushimay_menu')) || JSON.parse(JSON.stringify(defaultMenuItems));
+
+        // Estado de la aplicación
+        let cart = JSON.parse(localStorage.getItem('sushimay_cart')) || [];
+        let activeCategory = 'Todos';
+        let searchQuery = '';
+        let deliveryMode = 'delivery'; // 'delivery' | 'pickup'
+
+        const categories = ['Todos', 'Promociones', 'Rolls Premium', 'Tempura', 'Handrolls', 'Ceviches', 'Bebidas'];
+
+        // Formateador de moneda CLP
+        function formatCLP(amount) {
+            return '$' + amount.toLocaleString('es-CL');
+        }
+
+        // Indicador en vivo de Abierto/Cerrado según hora de Chile Continental
+        function updateLiveStoreStatus() {
+            const dot = document.getElementById('live-status-dot');
+            const text = document.getElementById('live-status-text');
+            if (!dot || !text) return;
+
+            try {
+                const nowChile = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Santiago" }));
+                const day = nowChile.getDay(); // 0 = Domingo, 1-4 = Lun-Jue, 5-6 = Vie-Sab
+                const minutesNow = nowChile.getHours() * 60 + nowChile.getMinutes();
+
+                let openMin = 12 * 60 + 30; // 12:30
+                let closeMin = 22 * 60 + 30; // 22:30
+
+                if (day === 5 || day === 6) {
+                    closeMin = 23 * 60 + 45; // 23:45
+                } else if (day === 0) {
+                    openMin = 13 * 60; // 13:00
+                    closeMin = 22 * 60; // 22:00
+                }
+
+                if (minutesNow >= openMin && minutesNow <= closeMin) {
+                    dot.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse';
+                    text.textContent = 'Abierto Ahora';
+                    text.className = 'text-emerald-300 font-semibold';
+                } else {
+                    dot.className = 'w-2 h-2 rounded-full bg-rose-500';
+                    const openHourStr = day === 0 ? '13:00' : '12:30';
+                    text.textContent = `Cerrado • Abre ${openHourStr}`;
+                    text.className = 'text-gray-400 font-medium';
+                }
+            } catch (e) {
+                text.textContent = 'Coquimbo • Pedidos Web';
+            }
+        }
+
+        // Inicialización al cargar la página
+        window.onload = function() {
+            updateLiveStoreStatus();
+            setInterval(updateLiveStoreStatus, 60000);
+            updateZoneLabels();
+            renderPromos();
+            renderCategoryTabs();
+            renderMenu();
+            updateCartUI();
+        };
+
+        function updateZoneLabels() {
+            const zoneSelect = document.getElementById('delivery-zone');
+            if (!zoneSelect) return;
+            zoneSelect.options[0].text = `Sector: Coquimbo Centro / Parte Alta / Puerto (${formatCLP(deliveryFees.centro)})`;
+            zoneSelect.options[1].text = `Sector: Sindempart / La Herradura / Peñuelas (${formatCLP(deliveryFees.intermedio)})`;
+            zoneSelect.options[2].text = `Sector: Tierras Blancas / Bosque San Carlos / Cantera (${formatCLP(deliveryFees.alejado)})`;
+        }
+
+        // Renderizar tarjetas de promociones destacadas
+        function renderPromos() {
+            const promosContainer = document.getElementById('promos-grid');
+            const promos = menuItems.filter(item => item.isPromo);
+
+            promosContainer.innerHTML = promos.map(promo => `
+                <div class="bg-cardbg rounded-2xl overflow-hidden border border-white/10 hover:border-gold/50 transition-all duration-300 flex flex-col group shadow-lg ${promo.soldOut ? 'opacity-60' : ''}">
+                    <div class="relative h-48 overflow-hidden">
+                        <img 
+                            src="${promo.image}" 
+                            onerror="this.src='https://placehold.co/600x400/1A1A22/D4AF37?text=${encodeURIComponent(promo.name)}'"
+                            alt="${promo.name}" 
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-cardbg via-transparent to-transparent"></div>
+                        ${promo.soldOut 
+                            ? `<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-gray-800 text-gray-300 text-xs font-bold shadow-md">Agotado Hoy</span>`
+                            : (promo.badge ? `<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-vermilion text-white text-xs font-bold shadow-md">${promo.badge}</span>` : '')
+                        }
+                        <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-obsidian/80 backdrop-blur-md text-gold text-xs font-semibold border border-gold/20">${promo.pieces}</span>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-lg text-white group-hover:text-gold transition-colors">${promo.name}</h3>
+                            <p class="text-xs text-gray-400 mt-2 leading-relaxed">${promo.description}</p>
+                        </div>
+                        <div class="mt-5 pt-4 border-t border-white/10 flex items-center justify-between">
+                            <div>
+                                ${promo.oldPrice ? `<span class="text-xs text-gray-500 line-through block">${formatCLP(promo.oldPrice)}</span>` : ''}
+                                <span class="text-xl font-extrabold text-white">${formatCLP(promo.price)}</span>
+                            </div>
+                            <button ${promo.soldOut ? 'disabled' : ''} onclick="addToCart('${promo.id}')" class="px-4 py-2.5 rounded-xl ${promo.soldOut ? 'bg-white/5 text-gray-500 cursor-not-allowed' : 'bg-vermilion hover:bg-vermilion-hover text-white shadow-md shadow-vermilion/20 active:scale-95'} text-xs font-bold transition-all flex items-center gap-2">
+                                <i class="fa-solid ${promo.soldOut ? 'fa-ban' : 'fa-plus'}"></i> ${promo.soldOut ? 'Agotado' : 'Agregar'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Renderizar pestañas de categorías
+        function renderCategoryTabs() {
+            const tabsContainer = document.getElementById('category-tabs');
+            tabsContainer.innerHTML = categories.map(cat => {
+                const isActive = activeCategory === cat;
+                return `
+                    <button 
+                        onclick="selectCategory('${cat}')"
+                        class="px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
+                            isActive 
+                            ? 'bg-vermilion text-white shadow-lg shadow-vermilion/25' 
+                            : 'bg-cardbg text-gray-400 hover:text-white border border-white/5 hover:border-white/15'
+                        }"
+                    >
+                        ${cat}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectCategory(cat) {
+            activeCategory = cat;
+            renderCategoryTabs();
+            renderMenu();
+        }
+
+        function handleSearch(val) {
+            searchQuery = val.toLowerCase().trim();
+            renderMenu();
+        }
+
+        function resetFilters() {
+            activeCategory = 'Todos';
+            searchQuery = '';
+            document.getElementById('search-input').value = '';
+            renderCategoryTabs();
+            renderMenu();
+        }
+
+        // Renderizar grilla principal de la carta
+        function renderMenu() {
+            const menuGrid = document.getElementById('menu-grid');
+            const emptyState = document.getElementById('empty-search');
+
+            const filtered = menuItems.filter(item => {
+                const matchesCategory = activeCategory === 'Todos' || item.category === activeCategory;
+                const matchesSearch = item.name.toLowerCase().includes(searchQuery) || 
+                                      item.description.toLowerCase().includes(searchQuery) ||
+                                      item.category.toLowerCase().includes(searchQuery);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                menuGrid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            menuGrid.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            menuGrid.innerHTML = filtered.map(item => `
+                <div class="bg-cardbg rounded-2xl p-4 border border-white/5 hover:border-white/15 transition-all flex flex-col justify-between group ${item.soldOut ? 'opacity-60' : ''}">
+                    <div>
+                        <div class="relative h-44 rounded-xl overflow-hidden mb-4 bg-obsidian">
+                            <img 
+                                src="${item.image}" 
+                                onerror="this.src='https://placehold.co/600x400/141419/E11D48?text=${encodeURIComponent(item.name)}'"
+                                alt="${item.name}" 
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            >
+                            ${item.soldOut 
+                                ? `<span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-lg bg-gray-900/90 text-gray-300 text-[11px] font-bold border border-white/10">Agotado</span>`
+                                : (item.badge ? `<span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-lg bg-obsidian/85 backdrop-blur-md text-gold text-[11px] font-bold border border-gold/30">${item.badge}</span>` : '')
+                            }
+                            <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded-md bg-black/75 text-gray-200 text-[11px] font-medium">${item.pieces}</span>
+                        </div>
+                        
+                        <div class="flex items-start justify-between gap-2">
+                            <h3 class="font-bold text-base text-white group-hover:text-vermilion transition-colors">${item.name}</h3>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1.5 leading-relaxed line-clamp-3">${item.description}</p>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between">
+                        <span class="text-lg font-extrabold text-white">${formatCLP(item.price)}</span>
+                        <button ${item.soldOut ? 'disabled' : ''} onclick="addToCart('${item.id}')" class="px-3.5 py-2 rounded-xl ${item.soldOut ? 'bg-white/5 text-gray-500 cursor-not-allowed' : 'bg-white/5 hover:bg-vermilion text-white'} text-xs font-bold transition-colors flex items-center gap-1.5">
+                            <i class="fa-solid ${item.soldOut ? 'fa-ban' : 'fa-cart-plus'}"></i> ${item.soldOut ? 'Agotado' : 'Agregar'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ================= GESTIÓN DEL CARRITO =================
+
+        function addToCart(itemId) {
+            const product = menuItems.find(p => p.id === itemId);
+            if (!product || product.soldOut) return;
+
+            const existing = cart.find(c => c.id === itemId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    qty: 1
+                });
+            }
+
+            saveAndRefreshCart();
+            showToast(`Agregado: ${product.name}`);
+        }
+
+        function quickAddPromo() {
+            addToCart('promo-40');
+            toggleCart();
+        }
+
+        function updateQuantity(itemId, delta) {
+            const index = cart.findIndex(c => c.id === itemId);
+            if (index === -1) return;
+
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            saveAndRefreshCart();
+        }
+
+        function saveAndRefreshCart() {
+            localStorage.setItem('sushimay_cart_v2', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function setDeliveryMode(mode) {
+            deliveryMode = mode;
+            const btnDelivery = document.getElementById('btn-delivery');
+            const btnPickup = document.getElementById('btn-pickup');
+            const addressWrapper = document.getElementById('address-field-wrapper');
+            const feeRow = document.getElementById('delivery-fee-row');
+
+            if (mode === 'delivery') {
+                btnDelivery.className = 'py-2 px-3 rounded-lg text-xs font-bold bg-vermilion text-white transition-all flex items-center justify-center gap-1.5';
+                btnPickup.className = 'py-2 px-3 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition-all flex items-center justify-center gap-1.5';
+                addressWrapper.classList.remove('hidden');
+                feeRow.classList.remove('hidden');
+            } else {
+                btnPickup.className = 'py-2 px-3 rounded-lg text-xs font-bold bg-vermilion text-white transition-all flex items-center justify-center gap-1.5';
+                btnDelivery.className = 'py-2 px-3 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition-all flex items-center justify-center gap-1.5';
+                addressWrapper.classList.add('hidden');
+                feeRow.classList.add('hidden');
+        function getSelectedDeliveryFee() {
+            if (deliveryMode !== 'delivery') return 0;
+            const zone = document.getElementById('delivery-zone')?.value || 'centro';
+            return deliveryFees[zone] || 1500;
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            const shipping = subtotal > 0 ? getSelectedDeliveryFee() : 0;
+            const grandTotal = subtotal + shipping;
+
+            const shippingDisplay = document.getElementById('cart-shipping-display');
+            if (shippingDisplay) {
+                shippingDisplay.textContent = formatCLP(shipping);
+            }
+
+            // Actualizar contadores en navbar y barra móvil
+            document.getElementById('nav-cart-count').textContent = totalItems;
+            
+            const mobileBar = document.getElementById('mobile-floating-bar');
+            if (totalItems > 0) {
+                mobileBar.classList.remove('hidden');
+                document.getElementById('mobile-bar-count').textContent = totalItems;
+                document.getElementById('mobile-bar-total').textContent = formatCLP(grandTotal);
+            } else {
+                mobileBar.classList.add('hidden');
+            }
+
+            // Renderizar items dentro del Drawer
+            const container = document.getElementById('cart-items-container');
+            const footer = document.getElementById('cart-footer');
+
+            if (cart.length === 0) {
+                footer.classList.add('hidden');
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center py-12">
+                        <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center text-gray-500 text-2xl mb-4">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                        </div>
+                        <h4 class="text-white font-bold text-base">Tu carrito está vacío</h4>
+                        <p class="text-xs text-gray-400 max-w-xs mt-1.5">Explora nuestra carta y agrega tus rolls, handrolls o tablas favoritas para comenzar.</p>
+                        <button onclick="toggleCart()" class="mt-6 px-5 py-2.5 rounded-xl bg-vermilion text-white text-xs font-bold">
+                            Ir a la Carta
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            footer.classList.remove('hidden');
+            container.innerHTML = cart.map(item => `
+                <div class="flex items-center gap-3.5 bg-cardbg p-3 rounded-2xl border border-white/5">
+                    <img 
+                        src="${item.image}" 
+                        onerror="this.src='https://placehold.co/150x150/141419/E11D48?text=Sushi'"
+                        alt="${item.name}" 
+                        class="w-16 h-16 rounded-xl object-cover shrink-0"
+                    >
+                    <div class="flex-1 min-w-0">
+                        <h4 class="text-white font-semibold text-sm truncate">${item.name}</h4>
+                        <p class="text-gold font-bold text-xs mt-0.5">${formatCLP(item.price * item.qty)}</p>
+                        
+                        <div class="flex items-center gap-3 mt-2">
+                            <button onclick="updateQuantity('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-white/10 hover:bg-vermilion text-white flex items-center justify-center text-xs transition-colors">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            <span class="text-white font-bold text-xs w-4 text-center">${item.qty}</span>
+                            <button onclick="updateQuantity('${item.id}', 1)" class="w-6 h-6 rounded-lg bg-white/10 hover:bg-vermilion text-white flex items-center justify-center text-xs transition-colors">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('cart-subtotal').textContent = formatCLP(subtotal);
+            document.getElementById('delivery-fee-label').textContent = `Envío (${selectedZone.name})`;
+            document.getElementById('delivery-fee-amount').textContent = formatCLP(shipping);
+            document.getElementById('cart-total').textContent = formatCLP(grandTotal);
+        }
+
+        function toggleCart() {
+            const backdrop = document.getElementById('cart-backdrop');
+            const drawer = document.getElementById('cart-drawer');
+            const isClosed = drawer.classList.contains('translate-x-full');
+
+            if (isClosed) {
+                backdrop.classList.remove('hidden');
+                setTimeout(() => drawer.classList.remove('translate-x-full'), 10);
+            } else {
+                drawer.classList.add('translate-x-full');
+                setTimeout(() => backdrop.classList.add('hidden'), 300);
+            }
+        }
+
+        // ================= GENERACIÓN DE ORDEN WHATSAPP =================
+        function sendOrderToWhatsApp() {
+            const errorEl = document.getElementById('checkout-error');
+            errorEl.classList.add('hidden');
+
+            const name = document.getElementById('customer-name').value.trim();
+            const zoneSelect = document.getElementById('delivery-zone');
+            const zoneLabel = zoneSelect ? zoneSelect.options[zoneSelect.selectedIndex].text.split(' (')[0] : '';
+            const address = document.getElementById('customer-address').value.trim();
+            const payment = document.getElementById('payment-method').value;
+            const chopsticks = document.getElementById('chopsticks-count').value.trim() || 'No especificado';
+            const notes = document.getElementById('order-notes').value.trim();
+
+            if (!name) {
+                errorEl.textContent = 'Por favor ingresa tu nombre para identificar el pedido.';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            if (deliveryMode === 'delivery' && !address) {
+                errorEl.textContent = 'Por favor ingresa tu dirección en Coquimbo para el despacho.';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            const shipping = getSelectedDeliveryFee();
+            const total = subtotal + shipping;
+
+            // Construcción del mensaje formateado para WhatsApp
+            let message = `🍣 *NUEVO PEDIDO - SUSHI MAY COQUIMBO* 🍣\n\n`;
+            message += `👤 *Cliente:* ${name}\n`;
+            message += `🛵 *Entrega:* ${deliveryMode === 'delivery' ? 'Delivery a Domicilio' : 'Retiro en Local (Coquimbo)'}\n`;
+            if (deliveryMode === 'delivery') {
+                message += `🗺️ *${zoneLabel}*\n`;
+                message += `📍 *Dirección:* ${address}\n`;
+            }
+            message += `💳 *Medio de Pago:* ${payment}\n`;
+            message += `🥢 *Palitos:* ${chopsticks}\n`;
+            if (notes) {
+                message += `📝 *Notas:* ${notes}\n`;
+            }
+            message += `\n*DETALLE DEL PEDIDO:*\n`;
+            
+            cart.forEach(item => {
+                message += `• ${item.qty}x ${item.name} (${formatCLP(item.price * item.qty)})\n`;
+            });
+
+            message += `\nSubtotal: ${formatCLP(subtotal)}\n`;
+            if (deliveryMode === 'delivery') {
+                message += `Delivery Coquimbo: ${formatCLP(shipping)}\n`;
+            }
+            message += `💰 *TOTAL A PAGAR: ${formatCLP(total)}*\n\n`;
+            message += `_Pedido generado desde la web oficial Sushi May Coquimbo_`;
+
+            const whatsappUrl = `https://wa.me/${RESTAURANT_WHATSAPP}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        }
+
+        function openDirectWhatsApp() {
+            const msg = "Hola Sushi May Coquimbo! Quisiera hacer una consulta sobre la carta.";
+            window.open(`https://wa.me/${RESTAURANT_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+        }
+
+        // ================= MODO ADMINISTRADOR =================
+        function openAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            document.getElementById('admin-fee-centro').value = deliveryFees.centro;
+            document.getElementById('admin-fee-intermedio').value = deliveryFees.intermedio;
+            document.getElementById('admin-fee-alejado').value = deliveryFees.alejado;
+
+            const list = document.getElementById('admin-products-list');
+            list.innerHTML = menuItems.map((item, idx) => `
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-cardbg p-3 rounded-xl border border-white/5">
+                    <div class="min-w-0 flex-1">
+                        <p class="text-white font-semibold text-xs truncate">${item.name}</p>
+                        <span class="text-[11px] text-gray-500">${item.category}</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-1">
+                            <span class="text-xs text-gray-400">$</span>
+                            <input type="number" id="admin-price-${idx}" value="${item.price}" class="w-24 bg-obsidian border border-white/10 rounded-lg px-2 py-1 text-xs text-white font-bold">
+                        </div>
+                        <label class="flex items-center gap-1.5 text-xs text-gray-300 cursor-pointer select-none">
+                            <input type="checkbox" id="admin-soldout-${idx}" ${item.soldOut ? 'checked' : ''} class="accent-vermilion rounded">
+                            <span>Agotado</span>
+                        </label>
+                    </div>
+                </div>
+            `).join('');
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveAdminChanges() {
+            deliveryFees.centro = parseInt(document.getElementById('admin-fee-centro').value, 10) || 1500;
+            deliveryFees.intermedio = parseInt(document.getElementById('admin-fee-intermedio').value, 10) || 2000;
+            deliveryFees.alejado = parseInt(document.getElementById('admin-fee-alejado').value, 10) || 2500;
+            localStorage.setItem('sushimay_fees', JSON.stringify(deliveryFees));
+
+            menuItems.forEach((item, idx) => {
+                const newPrice = parseInt(document.getElementById(`admin-price-${idx}`).value, 10);
+                if (!isNaN(newPrice) && newPrice > 0) {
+                    item.price = newPrice;
+                }
+                item.soldOut = document.getElementById(`admin-soldout-${idx}`).checked;
+            });
+
+            localStorage.setItem('sushimay_menu', JSON.stringify(menuItems));
+            updateZoneLabels();
+            renderPromos();
+            renderMenu();
+            updateCartUI();
+            closeAdminModal();
+            showToast('Cambios de carta y repartos guardados');
+        }
+
+        function resetAdminData() {
+            localStorage.removeItem('sushimay_menu');
+            localStorage.removeItem('sushimay_fees');
+            menuItems = JSON.parse(JSON.stringify(defaultMenuItems));
+            deliveryFees = { centro: 1500, intermedio: 2000, alejado: 2500 };
+            updateZoneLabels();
+            renderPromos();
+            renderMenu();
+            updateCartUI();
+            closeAdminModal();
+            showToast('Valores originales restaurados');
+        }
+
+        // Notificación flotante tipo Toast
+        function showToast(text) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-enter bg-charcoal border border-gold/40 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs font-semibold';
+            toast.innerHTML = `
+                <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-check"></i>
+                </span>
+                <span>${text}</span>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 2400);
+        }
+    </script>
+</body>
+</html>
